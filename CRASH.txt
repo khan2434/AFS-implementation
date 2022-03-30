@@ -1,0 +1,53 @@
+Client crashes:
+
+enum crash_num {
+  //crash after the first streamed packet is recieved in Fetch
+  CRASH_FETCH = 1,
+  //crash after the first streamed packet is sent in Store
+  CRASH_STORE = 2,
+  //crash in open after Fetching, but before updating attr
+  CRASH_OPEN = 3,
+  //crash as the first thing on close
+  CRASH_RELEASE_START = 4,
+  //crash in close after Storing, but before updating attr
+  CRASH_RELEASE_AFTER_STORE = 5,
+  //crash after setting attr before truncaking
+  CRASH_TRUNCATE = 6,
+  //crash after setting attr before writing
+  CRASH_WRITE = 7,
+  //not used
+  CRASH_MKDIR = 8,
+  //crash in rmdir after the RPC but before removing cached copy
+  CRASH_RMDIR = 9,
+  //crash in create after remote calls, but before setting attr
+  CRASH_CREATE_AFTER_REMOTE = 10,
+  //crash in unlink after RPC but beofre removing cached copy
+  CRASH_UNLINK = 11,
+};
+
+
+Server crashes:
+
+All of the start and end flags trigger as the very first or very last thing
+respectively. The streaming flags trigger after one iteration of the streaming 
+loop.
+
+enum crash_num {
+  //beginning of getattr
+  CRASH_GETATTR = 1,
+  CRASH_START_FETCH = 2,
+  CRASH_END_FETCH = 3,
+  CRASH_START_STORE = 4,
+  CRASH_END_STORE = 5,
+  CRASH_START_MKDIR = 6,
+  CRASH_END_MKDIR = 7,
+  CRASH_START_RMDIR = 8,
+  CRASH_END_RMDIR = 9,
+  CRASH_START_CREATE = 10,
+  CRASH_END_CREATE = 11,
+  CRASH_START_UNLINK = 12,
+  CRASH_END_UNLINK = 13,
+  CRASH_FETCH_STREAMING = 14,
+  CRASH_STORE_STREAMING = 15,
+};
+

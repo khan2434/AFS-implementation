@@ -1,0 +1,101 @@
+syntax = "proto3";
+
+package test;
+
+
+service Afs {
+    rpc GetAttr (GetAttrReq) returns (GetAttrReply) {}
+    rpc Fetch (FetchReq) returns (stream FetchReply) {}
+    rpc Store (stream StoreReq) returns (StoreReply) {}
+    rpc MkDir (MkDirReq) returns (MkDirReply) {}
+    rpc RmDir (RmDirReq) returns (RmDirReply) {}
+    rpc Create (CreateReq) returns (CreateReply) {}
+    rpc Unlink (UnlinkReq) returns (UnlinkReply) {}
+    rpc SayHello (HelloRequest) returns (HelloReply) {}
+}
+
+// The request message containing the user's name.
+message HelloRequest {
+  string name = 1;
+}
+
+// The response message containing the greetings
+message HelloReply {
+  string message = 1;
+}
+
+// store
+message StoreReq {
+    string path = 1;
+     bytes  buf = 2;
+}
+
+message StoreReply {
+    int32 err = 1;
+    int64 m_sec = 2;
+    int64 m_nsec = 3;
+}
+
+// MkDir
+message MkDirReq {
+    string path = 1;
+    int32 mode = 2;
+}
+
+message MkDirReply {
+    int32 err = 1;
+}
+
+// RmDir
+message RmDirReq {
+    string path = 1;
+}
+
+message RmDirReply {
+    int32 err = 1;
+}
+
+// Unlink
+message UnlinkReq {
+    string path = 1;
+}
+
+message UnlinkReply {
+    int32 err = 1;
+}
+
+message FetchReq {
+    string path = 1;
+}
+
+message FetchReply{
+    int32  err = 1;
+    string buf = 2;
+    int32 num_bytes = 3;
+    int64 m_sec = 4;
+    int64 m_nsec = 5;
+    
+}
+
+message CreateReq {
+    string path = 1;
+    int32 mode = 2;
+    int32 flags = 3;
+}
+
+message CreateReply {
+    int32 err = 1;
+    int64 m_sec = 2;
+    int64 m_nsec = 3;
+    int64 existence = 4;
+}
+
+message GetAttrReq {
+    string path = 1;
+}
+
+message GetAttrReply {
+    int32 err = 1;
+    bytes buf = 2;
+}
+
